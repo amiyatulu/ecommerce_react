@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { Route, Redirect, Switch } from "react-router-dom";
 import './App.css';
 import MainMenu from './components/MainMenu/MainMenu';
 import ProductList from './components/ProductList/ProductList';
+import HomePage from './components/HomePage/HomePage';
 
 class App extends Component {
   state = {
     categories: [
-                {id:1, item:'Earrings'},
-                {id:2, item:'Kada'},
-                {id:3, item:'Necklace Sets'}
+                {id:1, item:'Earrings', url:'/earrings'},
+                {id:2, item:'Kada', url:'/kada'},
+                {id:3, item:'Necklace Sets', url:'/necklace'}
                 ],
     products: [
               {id:1, name:"The Nayaab Chand Bali Earrings", price:17000, stock:2, image_url:"/jewellery/earring1.webp", categoryid:1 },
@@ -32,7 +34,18 @@ class App extends Component {
     return (
       <React.Fragment>
         <MainMenu categories={this.state.categories}/>
-        <ProductList products={this.state.products}/>
+        <div className="container">
+        <br/>
+			<br/>
+        <Switch>
+          <Route 
+              path="/earrings" 
+              render={props => <ProductList {...props} products={this.state.products} />}
+              />
+            <Route exact path="/" component={HomePage} />
+        
+        </Switch>
+        </div>
       </React.Fragment>
     );
   }

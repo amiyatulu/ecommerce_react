@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import { Link, NavLink } from "react-router-dom";
+
 
 class MainMenu extends Component {
     render() { 
         const {categories} = this.props;
-        const categorieslist =  categories.map(category => { return <a className="dropdown-item" key={category.id} href="#">{category.item}</a>})
+        const categorieslist =  categories.map(category => { return <NavLink className="dropdown-item" key={category.id} to={category.url}>{category.item}</NavLink>})
     
         return ( <React.Fragment>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -15,10 +17,10 @@ class MainMenu extends Component {
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav mr-auto">
       <li className="nav-item active">
-        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+        <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">Link</a>
+        <NavLink className="nav-link" to="/earrings">Earrings</NavLink>
       </li>
       <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

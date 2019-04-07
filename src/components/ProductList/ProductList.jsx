@@ -42,11 +42,10 @@ class ProductList extends Component {
 	 }
 	
         return (<React.Fragment>
-			<div className="container">
-			<br/>
-			<br/>
+			
+			
 			{_.map(data, row)}
-			</div>
+			
         </React.Fragment>);
     }
 }
