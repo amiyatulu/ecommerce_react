@@ -1,33 +1,111 @@
-.App {
+
+@font-face{
+  font-family: 'HeaderFont';
+  src:url('./fonts/HeadFont.otf');
+}
+
+.bodybackground {
+  background-image: url('./header.svg');
+  background-repeat: no-repeat, repeat;
+  background-size: 100%;
+  
+}
+.headerbottom {
+  background-color:white;
+}
+
+.double-down{
+  position: absolute; 
+  text-align:center;
+  font-size:5em;
+  bottom:0;
+  left: 0;
+  right: 0;
+  
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  
+  .tagline{
+    text-align:center;
+    font-size:1em;
+    padding-left:5px;
+    padding-right:5px;
+    color:white;
+    
+  }
+  .pheader {
+    position:relative;
+    height: 100vh;
+    
+    
+  }
+  
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .tagline{
+    text-align:center;
+    font-size:1em;
+    padding-left:5px;
+    padding-right:5px;
+    color:white;
+    
+  }
+  .pheader {
+    position:relative;
+    height: 100vh;
+    padding:10px;
+    
+  }
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .tagline{
+    text-align:center;
+    font-size:1em;
+    padding-left:50px;
+    padding-right:50px;
+    color:white;
+  }
+  .pheader {
+    position:relative;
+    padding:100px;
+    height: 100vh;
+    
+  }
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .tagline{
+    text-align:center;
+    font-size:1.5em;
+    padding-left:100px;
+    padding-right:100px;
+    color:white;
+  }
+
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .tagline{
+    text-align:center;
+    font-size:1.5em;
+    padding-left:100px;
+    padding-right:100px;
+    color:white;
+  }
+}
+
+
+
+.htitle {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  font-size: 6em;
+  color:whitesmoke;
+  font-family: 'HeaderFont';
 }

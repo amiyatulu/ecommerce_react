@@ -4,8 +4,16 @@ import './App.css';
 import MainMenu from './components/MainMenu/MainMenu';
 import ProductList from './components/ProductList/ProductList';
 import HomePage from './components/HomePage/HomePage';
+import BigMainMenu from './components/BigMainMenu/BigMainMenu';
+import { Link, NavLink } from "react-router-dom";
+
 
 class App extends Component {
+constructor(props){
+  super(props)
+  this.productDiv = React.createRef()
+}
+
   state = {
     categories: [
                 {id:1, item:'Earrings', url:'/earrings'},
@@ -30,21 +38,45 @@ class App extends Component {
              
     ]
             }
+
+  handlerScrollProducts = (event) => {
+    if(this.productDiv.current){
+      this.productDiv.current.scrollIntoView({ 
+         behavior: "smooth", 
+         block: "nearest"
+      })
+  }
+
+  }
   render() {
     return (
       <React.Fragment>
-        <MainMenu categories={this.state.categories}/>
-        <div className="container">
+        <div className="bodybackground">
+        <header className="pheader">
+        <h1 className="htitle">Sakhura Designs</h1>
+        <p className="tagline">The fashion brand that gives the western girl a unique ensemble through our collection of chic Indian wear.</p>
+        <div className="double-down" onClick={this.handlerScrollProducts}>
+        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+        </header>
+        
+
+
+
+        <div className="headerbottom">
+        <div className="container" ref={this.productDiv}>
         <br/>
 			<br/>
         <Switch>
           <Route 
-              path="/earrings" 
+             exact path="/" 
               render={props => <ProductList {...props} products={this.state.products} />}
               />
-            <Route exact path="/" component={HomePage} />
+           
         
         </Switch>
+        </div>
+        </div>
         </div>
       </React.Fragment>
     );
