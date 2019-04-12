@@ -45,7 +45,7 @@ class App extends Component {
       <React.Fragment>
  
   
-        
+        <div>
 
         <MainMenu categories={this.state.categories}/>
 
@@ -63,7 +63,7 @@ class App extends Component {
         </Switch>
         </div>
        <Footer homeUrl = {this.state.homeUrl} />
-        
+       </div>
       </React.Fragment>
     );
   }

@@ -9,7 +9,7 @@ class MainMenu extends Component {
         const categorieslist =  categories.map(category => { return <li className="nav-item"><Link  className="nav-link" key={category.id} to={category.url}>{category.item}</Link></li>})
     
         return ( <React.Fragment>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light static-top">
   <a className="navbar-brand" href="#"><span className="navbar-brand-span">Sakhura Designs</span></a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>

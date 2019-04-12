@@ -1,7 +1,7 @@
 .footer {
     margin-top:50px;
     height: 180px;
-    background-image: url('./header.svg');
+    background-image: url('./header.png');
     background-repeat: no-repeat, repeat;
     background-size: 100%;
 }
