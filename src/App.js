@@ -6,13 +6,11 @@ import ProductList from './components/ProductList/ProductList';
 import HomePage from './components/HomePage/HomePage';
 import BigMainMenu from './components/BigMainMenu/BigMainMenu';
 import { Link, NavLink } from "react-router-dom";
+import Footer from './components/Footer/Footer';
 
 
 class App extends Component {
-constructor(props){
-  super(props)
-  this.productDiv = React.createRef()
-}
+
 
   state = {
     categories: [
@@ -20,6 +18,7 @@ constructor(props){
                 {id:2, item:'Kada', url:'/kada'},
                 {id:3, item:'Necklace Sets', url:'/necklace'}
                 ],
+    homeUrl: "http://demo.sakhuradesigns.com",
     products: [
               {id:1, name:"The Nayaab Chand Bali Earrings", price:17000, stock:2, image_url:"/jewellery/earring1.webp", categoryid:1 },
               {id:2, name:"Bambo Earring", price:7000, stock:2, image_url:"/jewellery/earring2.webp", categoryid:1 },
@@ -39,45 +38,32 @@ constructor(props){
     ]
             }
 
-  handlerScrollProducts = (event) => {
-    if(this.productDiv.current){
-      this.productDiv.current.scrollIntoView({ 
-         behavior: "smooth", 
-         block: "nearest"
-      })
-  }
 
-  }
+  
   render() {
     return (
       <React.Fragment>
-        <div className="bodybackground">
-        <header className="pheader">
-        <h1 className="htitle">Sakhura Designs</h1>
-        <p className="tagline">The fashion brand that gives the western girl a unique ensemble through our collection of chic Indian wear.</p>
-        <div className="double-down" onClick={this.handlerScrollProducts}>
-        <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-        </div>
-        </header>
+ 
+  
         
 
+        <MainMenu categories={this.state.categories}/>
 
-
-        <div className="headerbottom">
-        <div className="container" ref={this.productDiv}>
+        
+        <div className="container">
         <br/>
 			<br/>
         <Switch>
           <Route 
-             exact path="/" 
+             path="/" 
               render={props => <ProductList {...props} products={this.state.products} />}
               />
            
         
         </Switch>
         </div>
-        </div>
-        </div>
+       <Footer homeUrl = {this.state.homeUrl} />
+        
       </React.Fragment>
     );
   }

@@ -1,0 +1,11 @@
+.navbar {
+    height:100px;
+    background-image: url('./header.svg');
+    background-repeat: no-repeat, repeat;
+    background-size: 100%;
+}
+
+.navbar-brand-span { 
+    font-family: 'HeaderFont';
+    font-size: 2.5rem;
+  }
