@@ -1,44 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import _ from "lodash";
-import ProductBox from '../ProductBox/ProductBox';
-import { media } from '../../config.json'
+import './productService.css';
+import ProductBox from '../components/ProductBox/ProductBox';
+import { media } from '../config.json'
 
 
 const GET_PRODUCT_LIST = gql`
 
-query {
-    allProduct
-    {
-      edges {
-        node {
-          id
-          productName
-          sku
-          description
-          jewelleryType {
-            typeName
-          }
-          jewelleryCategory {
-            categoryName
-          }
-          price
-          stock
-          image
+query getProductList($category: String!){
+  allProduct(jewelleryCategory_CategoryName: $category)
+  {
+    edges {
+      node {
+        id
+        productName
+        sku
+        description
+        jewelleryType {
+          typeName
         }
+        jewelleryCategory {
+          categoryName
+        }
+        price
+        stock
+        image
       }
     }
+  }
   }
 
 `;
 
+const ProductListView = ({category}) => (
 
-
-
-const HomePage = () => (
-
-    <Query query={GET_PRODUCT_LIST} >
+    <Query query={GET_PRODUCT_LIST} variables={{category}}>
     {({ loading, error, data }) => {
       if (loading) return null;
       if (error) return `Error! ${error}`;
@@ -72,4 +70,4 @@ const HomePage = () => (
 
 );
    
-export default HomePage;
+export default ProductListView;
