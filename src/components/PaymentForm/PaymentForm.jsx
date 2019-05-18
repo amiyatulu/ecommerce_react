@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Joi from "joi-browser";
 import Form from "../Common/Form";
-import { getProduct } from "../../services/productIdService";
+import {getProduct, getProducts } from "../../services/productIdService";
 import { media, apiUrl} from "../../config.json";
 import "./PaymentForm.css";
+import ProductCart from './ProductCart';
 
 
 class PaymentForm extends Form {
@@ -18,25 +19,37 @@ class PaymentForm extends Form {
             purpose:"",
             amount: "",
             redirect_url: "",
-            image: ""
+            products: []
 
         },
+        empty: true,
         errors: {}
      }
+
+     async loadProducts () {
+        const productCart = JSON.parse(localStorage.getItem('productCart'));
+        if (productCart) {
+            const {data} = await getProducts(productCart);
+            let price = 0;
+            for( let i=0, len=data.productList.length; i < len; i++){
+                price += data.productList[i].price;
+            }
+            const products = data.productList
+            const paydata = {}
+            paydata.purpose = "buy products"
+            paydata.amount = price
+            paydata.products = products
+            this.setState({paydata})
+            this.setState({empty: false})
+            // console.log(this.state.paydata)
+        } else {
+            this.setState({empty: true})
+
+        }
+     }
      async componentDidMount() {
-        //  console.log(this.props.match.params.id);
-        const {data} = await getProduct(this.props.match.params.id);
-        // console.log(data)
-        // console.log(data.product.jewelleryPrice.price)
-        // console.log(data.product.productName)
-        // console.log(data.product.jewelleryImages.edges[0].node.image)
-        const paydata = {}
-        paydata.purpose = data.product.productName
-        paydata.amount = data.product.price
-        paydata.image = data.product.image
-        this.setState({paydata})
-        // console.log(this.state.paydata)
-         
+        this.loadProducts()
+        
      }
      schema = {
         buyer_name: Joi.string()
@@ -49,6 +62,17 @@ class PaymentForm extends Form {
         phone: Joi.number().required().label("Phone Number")
         
      }
+     removeId = (id) => {
+        const productCart = JSON.parse(localStorage.getItem('productCart'));
+        
+        if (productCart) {
+            const newProductCart = productCart.filter(p => p !== id)
+            localStorage.setItem('productCart', JSON.stringify(newProductCart));
+            this.loadProducts();
+            
+            console.log(newProductCart)
+        }
+    }
 
     doSubmit = () => {
         const paydata = { ...this.state.paydata}
@@ -86,11 +110,12 @@ class PaymentForm extends Form {
 
     }
     render() { 
+        if (this.state.paydata.products.length > 0) {
         return ( <div>
             <h1>Product Details</h1>
-            <p>Name: {this.state.paydata.purpose}</p>
-            <p>Price: ₹ {this.state.paydata.amount}</p>
-            <p><img className="imgpay" src={media + this.state.paydata.image} alt=""/></p>
+            {this.state.paydata.products.map(product => <ProductCart key={product.id} product={product} removeid={this.removeId.bind(null, product.id)} media={media} /> )}
+            <p> <b>Total Price: ₹ {this.state.paydata.amount}</b></p>
+            
             <h1>User Details</h1>
             <form onSubmit={this.handleSubmit}>
                 {this.renderInput("buyer_name", "Name")}
@@ -100,6 +125,8 @@ class PaymentForm extends Form {
             </form>
            
             </div> );
+        } else 
+        return ( <p>Cart is Empty</p>)
     }
 }
  

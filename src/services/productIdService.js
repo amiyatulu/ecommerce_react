@@ -21,3 +21,33 @@ export function getProduct(id) {
       })
 }
 
+export function getProducts(ids) {
+  return client.query({
+  
+    query:gql `
+    query getProductList($ids: [ID!]!){
+      productList(ids: $ids){
+          id
+          productName
+          sku
+          description
+          jewelleryType {
+              typeName
+          }
+          jewelleryCategory {
+              categoryName
+          }
+          price
+          stock
+          image
+  }
+    }
+  
+    `,
+    variables : {
+      ids : ids
+    }
+
+  })
+}
+

@@ -4,7 +4,7 @@ import "./Footer.css";
 const Footer = (props) => {
     // console.log(props.homeUrl);
     return ( <React.Fragment>
-
+       
         <div className="footer">
         <div>
             <ul className="main-nav">
@@ -18,6 +18,7 @@ const Footer = (props) => {
 
         
         </div>
+        
     </React.Fragment> );
 }
  

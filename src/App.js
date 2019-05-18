@@ -47,13 +47,13 @@ class App extends Component {
         <MainMenu categories={categories} user={this.state.user}/>
 
         
-        <div className="container">
+        <div className="container mainbody">
         <br/>
 			<br/>
         <Switch>
         
           {categorieslist}
-          <Route path="/payment/:id" component={PaymentForm} />
+          <Route path="/payment/" component={PaymentForm} />
     
           <Route path="/" component={HomePage}/>
 

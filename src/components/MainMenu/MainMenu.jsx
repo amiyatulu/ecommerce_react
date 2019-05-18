@@ -23,7 +23,11 @@ class MainMenu extends Component {
       
     
     </ul>
-  
+    <ul className="nav navbar-nav navbar-right">
+        <li>
+          <Link to="/payment"  aria-expanded="false"> <i className="fa fa-cart-plus fa-5x" aria-hidden="true"></i></Link>
+          </li>
+    </ul>
   </div>
 </nav>
         </React.Fragment> );
