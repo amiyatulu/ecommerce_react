@@ -1,5 +1,5 @@
 {
-    "apiUrl":"http://localhost:8000",
-    "graphql": "http://localhost:8000/graphql",
-    "media": "http://localhost:8000/media/"
+    "apiUrl":"http://api.sakhuradesigns.com",
+    "graphql": "http://api.sakhuradesigns.com/graphql",
+    "media": "http://api.sakhuradesigns.com/media/"
 }

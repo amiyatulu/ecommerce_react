@@ -22,28 +22,49 @@ class PaymentForm extends Form {
             products: []
 
         },
-        empty: true,
+        dataAvailable: true,
         errors: {}
      }
 
      async loadProducts () {
         const productCart = JSON.parse(localStorage.getItem('productCart'));
-        if (productCart) {
-            const {data} = await getProducts(productCart);
+        // console.log(productCart)
+       
+        if (Array.isArray(productCart) && productCart.length) {
+            const ids =  productCart.map(function(element) {return element.id;})
+            const {data} = await getProducts(ids);
+            
+            
+            let products = data.productList
+    
+            let productIndex;
+            productCart.forEach(function (item, index) {
+                // console.log(item.id, index);
+                productIndex = products.map(function(element) {return element.id;}).indexOf(item.id);
+                // console.log(productIndex)
+                products[productIndex].quantity = item.quantity
+            });
+
             let price = 0;
-            for( let i=0, len=data.productList.length; i < len; i++){
-                price += data.productList[i].price;
+            let p = 0;
+            for( let i=0, len=products.length; i < len; i++){
+                // console.log(products[i].id, "id")
+                // console.log(products[i].quantity, "qunatity")
+                // console.log(products[i].price, "price")
+                p = products[i].quantity*products[i].price
+                // console.log(p, "q*p")
+                price += p;
+                // console.log(price, "totalprice")
+                
             }
-            const products = data.productList
             const paydata = {}
             paydata.purpose = "buy products"
             paydata.amount = price
             paydata.products = products
             this.setState({paydata})
-            this.setState({empty: false})
-            // console.log(this.state.paydata)
+            this.setState({dataAvailable: true })
         } else {
-            this.setState({empty: true})
+            this.setState({dataAvailable: false})
 
         }
      }
@@ -65,12 +86,12 @@ class PaymentForm extends Form {
      removeId = (id) => {
         const productCart = JSON.parse(localStorage.getItem('productCart'));
         
-        if (productCart) {
-            const newProductCart = productCart.filter(p => p !== id)
+        if (Array.isArray(productCart) && productCart.length) {
+            const newProductCart = productCart.filter(function(p) { return p.id !== id} )
             localStorage.setItem('productCart', JSON.stringify(newProductCart));
             this.loadProducts();
             
-            console.log(newProductCart)
+            // console.log(newProductCart)
         }
     }
 
@@ -110,7 +131,7 @@ class PaymentForm extends Form {
 
     }
     render() { 
-        if (this.state.paydata.products.length > 0) {
+        if (this.state.dataAvailable) {
         return ( <div>
             <h1>Product Details</h1>
             {this.state.paydata.products.map(product => <ProductCart key={product.id} product={product} removeid={this.removeId.bind(null, product.id)} media={media} /> )}

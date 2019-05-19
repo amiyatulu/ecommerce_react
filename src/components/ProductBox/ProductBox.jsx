@@ -22,14 +22,26 @@ class ProductBox extends Component {
     handleClick(id) {
         const productCart = JSON.parse(localStorage.getItem('productCart'));
         const thiso = this;
-        if (productCart) {
-            productCart.indexOf(id) === -1 ?  (function () {productCart.push(id); thiso.notifyProductAdded()}()) : this.notifyIdExists();
+        if (Array.isArray(productCart) && productCart.length) {
+            productCart.map(function(element) {return element.id;}).indexOf(id) === -1 ?  (function () {productCart.push({
+                'id': id,
+                'quantity':1,
+                }); thiso.notifyProductAdded()}()) : this.notifyIdExists();
             localStorage.setItem('productCart', JSON.stringify(productCart));
         } else {
-            const ids = [id];
+            const ids = [ 
+                {
+                'id': id,
+                'quantity':1,
+                }
+            ];
+            
             localStorage.setItem('productCart', JSON.stringify(ids));
             this.notifyProductAdded();
         }
+
+    
+
         
     }
     render() { 

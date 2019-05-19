@@ -40,7 +40,7 @@ const ProductListView = ({category}) => (
     {({ loading, error, data }) => {
       if (loading) return null;
       if (error) return `Error! ${error}`;
-      console.log(data);
+      // console.log(data);
      
       const products_chunk =   _.chunk(data.allProduct.edges, 3)
       const row = (datum, index) => {
