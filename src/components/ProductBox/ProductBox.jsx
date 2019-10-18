@@ -48,7 +48,7 @@ class ProductBox extends Component {
         const {id, name, price, image } = this.props;
         return ( <div className="col-md-4 col-sm-6">
         <figure>
-    <div><img className="productimg product" src={image} alt={name}/></div>
+    <div><img className="productimg img-fluid" src={image} alt={name}/></div>
     
     <figcaption>
            <h4 className="textcenter">{name}</h4>
